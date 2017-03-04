@@ -36,10 +36,40 @@
         <div class="col-sm-3 col-md-2 sidebar" id="sidegraphic">
           <!-- TEMPLATING: page-specific interactive graphic here -->
           <!-- Using example at https://bost.ocks.org/mike/circles/ -->
-          <svg width="720" height="120">
-            <circle id="circle1" cx="40" cy="60" r="10"></circle>
-            <circle id="circle2" cx="80" cy="60" r="10"></circle>
-            <circle id="circle3" cx="120" cy="60" r="10"></circle>
+          <svg width="720" height="500">
+            <circle id="suspicious" cx="50" cy="50" r="50" fill="#f4c542"></circle>
+            <text x="0" y="50"
+                  style="font-family: Times New Roman;
+                         font-size: 12pt;
+                         stroke: #000000;
+                         fill: #000000;">
+              Suspicious activity
+            </text>
+
+            <circle id="cited" cx="100" cy="150" r="50" fill="#c6c4be"></circle>
+            <text x="50" y="150"
+                  style="font-family: Times New Roman;
+                         font-size: 12pt;
+                         stroke: #000000;
+                         fill: #000000;">
+              Cited and released
+            </text>
+            <circle id="warned" cx="100" cy="250" r="50" fill="#c6c4be"></circle>
+            <text x="50" y="250"
+                  style="font-family: Times New Roman;
+                         font-size: 12pt;
+                         stroke: #000000;
+                         fill: #000000;">
+              Warned and released
+            </text>
+            <circle id="arrested" cx="50" cy="350" r="50" fill="#c6c4be"></circle>
+            <text x="0" y="350"
+                  style="font-family: Times New Roman;
+                         font-size: 12pt;
+                         stroke: #000000;
+                         fill: #000000;">
+              Arrested
+            </text>
           </svg>
           <!-- TEMPLATING: end of page-specific interactive graphic -->
         </div>
@@ -87,35 +117,38 @@
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script>
     // Using example at https://bost.ocks.org/mike/circles/
-    var circle1 = d3.select('#circle1');
-    var circle2 = d3.select('#circle2');
-    var circle3 = d3.select('#circle3');
+    var activeColor = "#f4c542";
+    var postActiveColor = "#f2d176";
+    var inactiveColor = "#c6c4be";
+    var suspicious = d3.select('#suspicious');
+    var cited = d3.select('#cited');
+    var warned = d3.select('#warned');
+    var arrested = d3.select('#arrested');
 
     window.onscroll = function() {
       var scrollPosition = $('html,body').scrollTop();
       console.log(scrollPosition);
 
-      if (scrollPosition < 100) {
-        circle1.style("fill", "steelblue");
-        circle1.attr("r", 30);
-        circle2.style("fill", "black");
-        circle2.attr("r", 10);
-        circle3.style("fill", "black");
-        circle3.attr("r", 10);
-      } else if (scrollPosition < 1000) {
-        circle2.style("fill", "steelblue");
-        circle2.attr("r", 30);
-        circle1.style("fill", "black");
-        circle1.attr("r", 10);
-        circle3.style("fill", "black");
-        circle3.attr("r", 10);
+      if (scrollPosition < 300) {
+        suspicious.style("fill", activeColor);
+        cited.style("fill", inactiveColor);
+        warned.style("fill", inactiveColor);
+        arrested.style("fill", inactiveColor);
+      } else if (scrollPosition < 600) {
+        suspicious.style("fill", postActiveColor);
+        cited.style("fill", activeColor);
+        warned.style("fill", inactiveColor);
+        arrested.style("fill", inactiveColor);
+      } else if (scrollPosition < 900) {
+        suspicious.style("fill", postActiveColor);
+        cited.style("fill", postActiveColor);
+        warned.style("fill", activeColor);
+        arrested.style("fill", inactiveColor);
       } else {
-        circle3.style("fill", "steelblue");
-        circle3.attr("r", 30);
-        circle1.style("fill", "black");
-        circle1.attr("r", 10);
-        circle2.style("fill", "black");
-        circle2.attr("r", 10);
+        suspicious.style("fill", postActiveColor);
+        cited.style("fill", postActiveColor);
+        warned.style("fill", postActiveColor);
+        arrested.style("fill", activeColor);
       }
     };
   </script>
