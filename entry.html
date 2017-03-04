@@ -33,14 +33,50 @@
          http://getbootstrap.com/examples/dashboard/# -->
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-3 col-md-2 sidebar" id="sidegraphic">
           <!-- TEMPLATING: page-specific interactive graphic here -->
-          Graphic will go here
+          <!-- Using example at https://bost.ocks.org/mike/circles/ -->
+          <svg width="720" height="120">
+            <circle id="circle1" cx="40" cy="60" r="10"></circle>
+            <circle id="circle2" cx="80" cy="60" r="10"></circle>
+            <circle id="circle3" cx="120" cy="60" r="10"></circle>
+          </svg>
           <!-- TEMPLATING: end of page-specific interactive graphic -->
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div id="maincontent" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <!-- TEMPLATING: page-specific main content here -->
-          Content will go here
+
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod elit ut facilisis consectetur. Integer tincidunt purus semper blandit aliquet. Vestibulum placerat eget eros et aliquet. Integer lacinia pretium metus, et elementum lectus accumsan eget. Cras eleifend turpis odio, a dictum turpis rutrum sed. Donec sodales felis eu vulputate imperdiet. Etiam tincidunt fermentum orci eu finibus. Aenean vel risus vel quam tincidunt vulputate vel in sem. Praesent sed dignissim nisl. Donec suscipit gravida bibendum. Donec eget semper nunc, vel pellentesque nunc. Etiam at lorem non augue tincidunt feugiat et sit amet mauris.</p>
+
+          <p>Curabitur ac elit eu tortor venenatis tincidunt. Cras eu pharetra nibh. Phasellus vitae magna placerat, aliquam elit at, bibendum urna. Curabitur sed cursus ipsum, quis consectetur quam. Aliquam vitae sem pellentesque, aliquet nisl sed, placerat justo. Proin ullamcorper mi ac bibendum rhoncus. Nulla id massa et erat venenatis pretium. Praesent eu porttitor mauris.</p>
+
+          <p>Suspendisse fermentum dolor non turpis hendrerit rhoncus. Nullam luctus at nisl quis congue. Quisque id arcu pharetra, porttitor risus ut, dignissim neque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus ullamcorper elit sit amet nulla consectetur, vel dictum dolor lacinia. In turpis mi, suscipit non pretium vel, mollis sed felis. Nulla vitae mi sit amet lacus pellentesque efficitur eu quis sapien. Ut venenatis accumsan mi quis tempus. Aenean lobortis efficitur justo, vitae scelerisque libero rhoncus ac. Sed aliquet ultricies ullamcorper. Vestibulum malesuada lacinia elit, eget sollicitudin leo porta sed. Mauris tincidunt diam a massa viverra, volutpat tristique lacus iaculis. Aliquam lectus lectus, volutpat quis viverra vitae, mattis auctor lacus. Praesent tincidunt ligula eget interdum lobortis. Sed non blandit dui. Vivamus a lorem id ex dictum placerat sed sed nibh.</p>
+
+          <p>Fusce nec dolor maximus, pulvinar diam id, ornare nisi. Phasellus semper ultrices ultrices. Cras augue diam, mollis sit amet ante non, posuere tincidunt eros. Ut vitae ornare risus, ut auctor justo. Nam nec consectetur lectus. Pellentesque semper at elit at placerat. Fusce a lacus eu sem ullamcorper tincidunt. Aliquam non augue mi. Nam volutpat, erat nec fringilla pretium, erat diam porttitor nunc, id pharetra ipsum ante ac nulla. Integer nisl ex, porttitor non suscipit ut, vulputate interdum quam. Fusce accumsan lacus sed tellus fermentum rhoncus et ac massa.</p>
+
+          <p>Pellentesque aliquam sapien sit amet hendrerit tincidunt. Curabitur tristique pretium egestas. Suspendisse ut semper tortor. Morbi ligula felis, ullamcorper eget dui non, tristique congue ante. Suspendisse quis bibendum mi. Aliquam ultrices id risus eu pulvinar. Phasellus pulvinar blandit sodales. In laoreet pulvinar tortor, sed placerat purus sollicitudin vitae. Suspendisse pharetra lorem in sapien congue, eget sagittis sapien finibus. Aliquam a elit velit. In vitae erat eget orci elementum eleifend. Etiam pellentesque semper dolor, ut convallis urna faucibus non. Morbi orci tortor, faucibus sit amet auctor vulputate, eleifend in massa.</p>
+
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In finibus sollicitudin convallis. Vivamus eget nisl velit. Pellentesque maximus ante id odio tincidunt, eu blandit sem semper. Donec elementum efficitur eros eget pellentesque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque ac bibendum ipsum, sit amet tincidunt elit. Vestibulum dignissim purus vitae dapibus interdum. Ut et dignissim dui. Pellentesque eu odio nec dolor mollis fringilla id in enim. Nam nec lorem scelerisque, aliquam dui ut, feugiat nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+
+          <p>Praesent eros erat, tincidunt ac erat at, lobortis gravida nisl. Sed tempor quam et sapien condimentum dictum. Ut vel placerat dui, vitae feugiat dui. Nullam imperdiet, enim at sodales commodo, sapien ipsum sagittis nisi, nec pellentesque massa risus eget odio. Cras a neque ante. Suspendisse et lorem at augue euismod tincidunt. Cras tristique mollis ex, a malesuada risus pulvinar et. Curabitur eget purus a magna vestibulum euismod eu nec lacus. Sed dapibus arcu quis felis blandit, non dictum magna mattis. Aliquam erat volutpat. Fusce dolor libero, cursus non ultricies nec, luctus eget dui. Nullam lacinia magna odio, sed eleifend lectus fringilla ut. Praesent luctus semper faucibus. Maecenas varius diam sit amet mauris viverra faucibus. In a nisi vitae eros pretium dapibus.</p>
+
+          <p>Aliquam ultrices vulputate magna ac egestas. Aenean elementum rutrum risus sed finibus. Proin tincidunt ornare dolor, fermentum venenatis enim congue eu. Fusce egestas lobortis metus ut posuere. Sed viverra leo at magna eleifend, vitae tempor erat porttitor. Quisque non quam nec mi malesuada interdum in eu odio. Sed dolor nulla, gravida in condimentum id, semper eu est. Nam ante metus, rutrum ut ullamcorper vel, congue sit amet dolor. Vivamus congue dui non diam tincidunt, nec viverra neque condimentum. Nunc est ante, consectetur ut eros sed, bibendum suscipit lectus. Mauris efficitur dapibus diam id vestibulum. Integer tristique libero arcu, sed viverra arcu iaculis molestie. In luctus accumsan augue a tempus.</p>
+
+          <p>Nulla ac mauris nisi. In mollis, ante non bibendum placerat, eros massa ultricies ipsum, dignissim bibendum magna enim quis erat. Mauris vel lectus sed metus bibendum placerat. Sed at luctus sapien. Praesent placerat a nibh at lacinia. Nunc feugiat ultrices massa, in blandit leo iaculis nec. Morbi ultricies turpis sed mauris molestie, eget volutpat orci feugiat. Suspendisse pellentesque, nibh ac volutpat maximus, libero mi finibus augue, quis ullamcorper ex ipsum non metus. In ultricies suscipit ex convallis dapibus.</p>
+
+          <p>Nunc aliquam enim mollis nisi condimentum sagittis. Maecenas vulputate ornare pellentesque. Duis vel ex laoreet, feugiat ipsum id, pretium mi. Nulla bibendum in felis sit amet tincidunt. Vivamus dui odio, iaculis in odio nec, mattis feugiat leo. Vivamus semper cursus sodales. Sed malesuada mi eget erat semper fermentum. Integer egestas odio quis leo porta, vitae ornare enim congue. Nulla eu lectus vestibulum sapien venenatis lobortis. Cras ut mi ut mi pulvinar sodales. Duis ultrices lacus ligula, a gravida enim varius eget. Sed efficitur mi at ante dignissim, sed eleifend massa elementum.</p>
+
+          <p>Sed venenatis lacus ligula, non laoreet mauris laoreet eget. Curabitur pretium risus libero, eu ullamcorper purus pharetra sit amet. Duis auctor consectetur eleifend. Sed at dignissim sapien, a venenatis risus. Curabitur efficitur viverra nulla id vehicula. Vestibulum at placerat ligula, at rutrum nulla. Sed sodales nulla nec cursus sodales. Donec tincidunt sit amet justo quis posuere. Praesent ante sapien, cursus vitae viverra ut, iaculis ac ipsum.</p>
+
+          <p>Nulla dictum augue sed fermentum pretium. Suspendisse eget ultrices dolor. Suspendisse potenti. Aliquam dictum, dolor eget varius mattis, dolor nisl feugiat eros, congue mattis est odio et purus. Pellentesque tincidunt varius tortor. Aliquam vestibulum vitae ante eget eleifend. Nullam ultrices, massa ut ultricies lacinia, dolor sapien accumsan mi, eu luctus magna turpis vitae metus. Suspendisse ut justo consectetur, maximus orci eget, tempor mi. Maecenas libero metus, porta a porttitor at, volutpat a sem. Phasellus pharetra nisi sed nibh laoreet pulvinar luctus ac odio. Vivamus ornare sem odio, aliquam gravida ipsum tempus a. Duis pharetra ultricies erat, rutrum fringilla augue pretium vel. In eros augue, sagittis sed vestibulum non, tempor a dolor. Maecenas finibus velit id nisl venenatis efficitur. Nulla gravida pellentesque dui, pellentesque dictum nunc eleifend et. Nulla facilisis mauris metus, viverra elementum ante bibendum ut.</p>
+
+          <p>Quisque efficitur lectus eu sagittis feugiat. Sed molestie dolor dui, eu placerat lorem gravida non. Donec dapibus luctus purus, sit amet cursus mauris fermentum ac. Mauris malesuada varius suscipit. Vivamus ac imperdiet dui. Ut tortor nisi, sagittis quis imperdiet eu, euismod eget eros. Sed eleifend vel neque sit amet posuere. Fusce pulvinar accumsan lacus eget eleifend. Nullam ac scelerisque dolor, et vestibulum nisl. Aenean in leo sed nibh vulputate commodo a at enim. Sed non tincidunt lorem. Etiam id pretium dolor. Nunc efficitur metus a molestie commodo.</p>
+
+          <p>Vestibulum at ex quis ante bibendum elementum. Etiam odio sem, condimentum ac diam dictum, ultrices aliquam enim. Nullam non malesuada lectus. Proin iaculis luctus tellus imperdiet semper. Donec vel feugiat eros, sed consequat enim. Morbi lacinia tincidunt quam. Mauris sit amet nisl tempus, cursus felis et, ornare orci. Duis quis ipsum et sapien accumsan scelerisque sed sit amet neque. Nullam finibus libero viverra augue aliquet commodo. Sed eu urna id dui facilisis dapibus eu non magna. Nam tincidunt metus non turpis tempus ultrices. Mauris et interdum augue, at pellentesque mi. Morbi vitae consequat quam.</p>
+
+          <p>Curabitur tortor est, volutpat ut condimentum ultricies, rhoncus nec magna. Aenean elementum placerat risus in scelerisque. Nam laoreet eu tortor posuere hendrerit. Proin nisi lacus, dictum eu euismod a, mattis ut enim. Suspendisse aliquet sollicitudin pulvinar. Curabitur malesuada euismod augue in eleifend. Aliquam eu vestibulum nibh. Mauris at pretium diam. Proin venenatis risus arcu, quis venenatis sem commodo at. Donec at ipsum ultrices metus venenatis laoreet eu ut nibh. Curabitur sed tortor pulvinar magna ultrices consequat vestibulum eu est. Mauris pulvinar lorem sapien, in posuere lacus mollis et. Aliquam imperdiet ut dui at pharetra. Pellentesque non lectus quis augue tincidunt feugiat non id eros.</p>
           <!-- TEMPLATING: end of page-specific main content -->
         </div>
       </div> <!-- end of row that encompasses all of page content -->
@@ -48,6 +84,41 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script>
+    // Using example at https://bost.ocks.org/mike/circles/
+    var circle1 = d3.select('#circle1');
+    var circle2 = d3.select('#circle2');
+    var circle3 = d3.select('#circle3');
+
+    window.onscroll = function() {
+      var scrollPosition = $('html,body').scrollTop();
+      console.log(scrollPosition);
+
+      if (scrollPosition < 100) {
+        circle1.style("fill", "steelblue");
+        circle1.attr("r", 30);
+        circle2.style("fill", "black");
+        circle2.attr("r", 10);
+        circle3.style("fill", "black");
+        circle3.attr("r", 10);
+      } else if (scrollPosition < 1000) {
+        circle2.style("fill", "steelblue");
+        circle2.attr("r", 30);
+        circle1.style("fill", "black");
+        circle1.attr("r", 10);
+        circle3.style("fill", "black");
+        circle3.attr("r", 10);
+      } else {
+        circle3.style("fill", "steelblue");
+        circle3.attr("r", 30);
+        circle1.style("fill", "black");
+        circle1.attr("r", 10);
+        circle2.style("fill", "black");
+        circle2.attr("r", 10);
+      }
+    };
+  </script>
 </body>
 
 </html>
