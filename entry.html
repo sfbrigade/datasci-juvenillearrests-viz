@@ -127,7 +127,8 @@
     var arrested = d3.selectAll('.arrested');
 
     window.onscroll = function() {
-      var scrollPosition = $('html,body').scrollTop();
+      // body works on some browers, html on others. Still need to test more OS/browser combinations.
+      var scrollPosition = Math.max($('body').scrollTop(),$('html').scrollTop());
       console.log(scrollPosition);
 
       if (scrollPosition < 300) {
