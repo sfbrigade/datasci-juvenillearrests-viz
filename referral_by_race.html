@@ -22,26 +22,46 @@
 
     var parseTime = d3.timeParse('%Y');
 
-    var x = d3.scaleTime()
+    var x = d3.scaleLinear()
               .rangeRound([0, width])
     var y = d3.scaleLinear()
               .rangeRound([height, 0])
     var line = d3.line()
                  .x(function(d) { return x(d.year); })
-                 .y(function(d) { return y(d.referral_county_code); })
+                 .y(function(d) { return y(d.referralPercentage); })
 
     d3.csv(
       'nonpublicdata/simulated_JCPSS.csv',
-      function(data) {
-        data.year = parseTime(data.year);
-        data.referral_county_code = +data.referral_county_code;
-        return data;
-      },
       function(error, data) {
         if (error) {throw error;}
 
-        x.domain(d3.extent(data, function(d) {return d.year; }));
-        y.domain(d3.extent(data, function(d) {return d.referral_county_code;}));
+        // help from http://learnjsdata.com/iterate_data.html
+        // There is probably a more elegant way to do this with d3
+        //  or more likely we should have a bunch of this preprocessed
+        //  rather than generating each time
+        var counts = {};
+        data.forEach(function(d) {
+          var year = +d.year;
+          if (!counts.hasOwnProperty(year)) {
+            counts[year] = {'total': 0, 'referrals': 0};
+          }
+          counts[year].total += 1;
+          counts[year].referrals += (d.action_type === 'Referral' ? 1 : 0);
+        });
+
+        var percentages = [];
+        Object.keys(counts).sort().forEach(function(year) {
+          var percentage = counts[year].referrals / counts[year].total;
+          percentages.push(
+            {
+              year: year,
+              referralPercentage: percentage,
+            }
+          );
+        });
+
+        x.domain(d3.extent(percentages, function(d) {return d.year; }));
+        y.domain(d3.extent(percentages, function(d) {return d.referralPercentage;}));
         g.append('g')
            .attr('transform', 'translate(0,' + height + ')')
            .call(d3.axisBottom(x))
@@ -56,10 +76,10 @@
            .attr('y', 6)
            .attr('dy', '0.71em')
            .attr('text-anchor', 'end')
-           .text('county id as numeric value');
+           .text('referral percentages');
 
         g.append('path')
-         .datum(data)
+         .datum(percentages)
          .attr('fill', 'none')
          .attr('stroke', 'steelblue')
          .attr('stroke-linejoin', 'round')
