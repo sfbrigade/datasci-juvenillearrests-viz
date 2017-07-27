@@ -3,17 +3,31 @@
 
 <head>
   <meta charset="utf8"/>
+  <style>
+    .axis--x path {
+      display: none;
+    }
+
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 1.5px;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- based on https://bl.ocks.org/mbostock/3883245 -->
+  <!-- based on 
+    https://bl.ocks.org/mbostock/3883245
+    https://bl.ocks.org/mbostock/3884955
+  -->
   <svg width='960' height='500'></svg>
   <script src="https://d3js.org/d3.v4.min.js"></script>
 
   <script>
 
     var svg = d3.select('svg'),
-        margin = {top: 20, right: 20, bottom: 30, left: 50},
+        margin = {top: 20, right: 80, bottom: 30, left: 50},
         width = +svg.attr('width') - margin.left - margin.right,
         height = +svg.attr('height') - margin.top - margin.bottom,
         g = svg.append('g').attr('transform',
@@ -26,7 +40,10 @@
               .rangeRound([0, width]);
     var y = d3.scaleLinear()
               .rangeRound([height, 0]);
+    var z = d3.scaleOrdinal(d3.schemeCategory10);
+
     var line = d3.line()
+                 .curve(d3.curveBasis)
                  .x(function(d) { return x(d.year); })
                  .y(function(d) { return y(d.referralPercentage); });
 
@@ -39,55 +56,111 @@
         // There is probably a more elegant way to do this with d3
         //  or more likely we should have a bunch of this preprocessed
         //  rather than generating each time
-        var counts = {};
+        var counts = {all: {}};
         data.forEach(function(d) {
           var year = +d.year;
-          if (!counts.hasOwnProperty(year)) {
-            counts[year] = {'total': 0, 'referrals': 0};
+
+          if (!counts.hasOwnProperty(d.race)) {
+            counts[d.race] = {};
           }
-          counts[year].total += 1;
-          counts[year].referrals += (d.action_type === 'Referral' ? 1 : 0);
-        });
 
-        var percentages = [];
-        Object.keys(counts).sort().forEach(function(year) {
-          var percentage = counts[year].referrals / counts[year].total;
-          percentages.push(
-            {
-              year: parseTime(year),
-              referralPercentage: percentage,
+          var referralCount = d.action_type === 'Referral' ? 1 : 0;
+
+          [counts.all, counts[d.race]].forEach(function(obj) {
+            if (!obj.hasOwnProperty(d.year)) {
+              obj[d.year] = {total: 0, referrals: 0};
             }
-          );
+            obj[d.year].total += 1;
+            obj[d.year].referrals += referralCount;
+          });
         });
 
-        x.domain(d3.extent(percentages, function(d) {return d.year; }));
-        y.domain(d3.extent(percentages, function(d) {return d.referralPercentage;}));
+        var yearsInOrder = Object.keys(counts.all).sort();
+
+        var races = Object.keys(counts).map(function(race) {
+          return {
+            id: race,
+            values: yearsInOrder.map(function(year) {
+              var referralPercentage =
+                counts[race].hasOwnProperty(year) ?
+                  counts[race][year].referrals / counts[race][year].total :
+                  0;
+              return {
+                      year: parseTime(year),
+                      referralPercentage: referralPercentage,
+                     };
+            }),
+          }
+        });
+
+        x.domain([
+          d3.min(races, function(p) {
+            return d3.min(p.values, function(d) {
+              return d.year;
+            });
+          }),
+          d3.max(races, function(p) {
+            return d3.max(p.values, function(d) {
+              return d.year;
+            });
+          }),
+        ]);
+        y.domain([
+          d3.min(races, function(p) {
+            return d3.min(p.values, function(d) {
+              return d.referralPercentage;
+            });
+          }),
+          d3.max(races, function (p) {
+            return d3.max(p.values, function (d) {
+              return d.referralPercentage;
+            });
+          }),
+        ]);
+        z.domain(races.map(function(p) { return p.id }));
+
+
         g.append('g')
+           .attr('class', 'axis axis--x')
            .attr('transform', 'translate(0,' + height + ')')
            .call(d3.axisBottom(x))
-         .select('.domain')
-           .remove();
 
         g.append('g')
+           .attr('class', 'axis axis--y')
            .call(d3.axisLeft(y))
          .append('text')
            .attr('fill', '#000')
            .attr('transform', 'rotate(-90)')
            .attr('y', 6)
            .attr('dy', '0.71em')
-           .attr('text-anchor', 'end')
-           .text('referral percentages');
+           .text('Referral Percentages');
 
-        g.append('path')
-         .datum(percentages)
-         .attr('fill', 'none')
-         .attr('stroke', 'steelblue')
-         .attr('stroke-linejoin', 'round')
-         .attr('stroke-linecap', 'round')
-         .attr('stroke-width', 1.5)
-         .attr('d', line);
-      }
-    );
+        var race = g.selectAll('.race')
+          .data(races)
+          .enter().append('g')
+            .attr('class', 'race');
+
+        race.append('path')
+          .attr('class', 'line')
+          .attr('d', function(d) { return line(d.values) })
+          .style('stroke', function(d) { return z(d.id) })
+
+        race.append('text')
+          .datum(function(d) { return {
+                                       id: d.id,
+                                       value: d.values[d.values.length-1]
+                                      };
+                             })
+          .attr('transform', function(d) {
+                              return 'translate(' +
+                                x(d.value.year) + ',' +
+                                y(d.value.referralPercentage) + ')';})
+          .attr('x', 3)
+          .attr('dy', '0.35em')
+          .style('font', '10px sans-serif')
+          .text(function(d) { return d.id; });
+    });
+
   </script>
 </body>
 
