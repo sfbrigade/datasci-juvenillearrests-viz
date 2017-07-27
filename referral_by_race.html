@@ -22,7 +22,7 @@
 
     var parseTime = d3.timeParse('%Y');
 
-    var x = d3.scaleLinear()
+    var x = d3.scaleTime()
               .rangeRound([0, width])
     var y = d3.scaleLinear()
               .rangeRound([height, 0])
@@ -54,7 +54,7 @@
           var percentage = counts[year].referrals / counts[year].total;
           percentages.push(
             {
-              year: year,
+              year: parseTime(year),
               referralPercentage: percentage,
             }
           );
