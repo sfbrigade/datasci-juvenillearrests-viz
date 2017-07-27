@@ -23,12 +23,12 @@
     var parseTime = d3.timeParse('%Y');
 
     var x = d3.scaleTime()
-              .rangeRound([0, width])
+              .rangeRound([0, width]);
     var y = d3.scaleLinear()
-              .rangeRound([height, 0])
+              .rangeRound([height, 0]);
     var line = d3.line()
                  .x(function(d) { return x(d.year); })
-                 .y(function(d) { return y(d.referralPercentage); })
+                 .y(function(d) { return y(d.referralPercentage); });
 
     d3.csv(
       'nonpublicdata/simulated_JCPSS.csv',
