@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<!-- based on code from
+  https://bl.ocks.org/mbostock/3887235
+  http://bl.ocks.org/d3noob/7030f35b72de721622b8
+-->
+<head>
+  <meta charset='utf-8'>
+  <style>
+
+    .arc text {
+      font 10px sans-serif;
+      text-anchor: middle;
+    }
+
+    .arc path {
+      stroke: #fff;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <svg width='960' height='500'></svg>
+  <script src='https://d3js.org/d3.v4.min.js'></script>
+
+  <script>
+    var svg = d3.select('svg');
+    var width = +svg.attr('width');
+    var height = +svg.attr('height');
+    var radius = Math.min(width, height) / 2;
+    var g = svg.append('g').attr(
+      'transform', 
+      'translate(' + width / 2 + ',' + height / 2 + ')'
+    );
+
+    var color = d3.scaleOrdinal(['#98abc5', '#8a89a6', '#7b6888',
+                                 '#6b486b', '#a05d56', '#d0743c',
+                                 '#ff8c00']);
+
+    var pie = d3.pie()
+                .sort(null)
+                .value(function(d) { return d.count; });
+
+    var path = d3.arc()
+                 .outerRadius(radius - 10)
+                 .innerRadius(0);
+
+    var label = d3.arc()
+                  .outerRadius(radius - 40)
+                  .innerRadius(radius - 40);
+
+    d3.csv('nonpublicdata/simulated_JCPSS.csv',
+      function(error, data) {
+        if (error) throw error;
+
+        // Again, we should probably pregenerate a lot of this.
+        // Or perhaps there is a more elegant and efficient way to
+        // do it in d3.
+
+        var counts = {};
+
+        data.forEach(
+          function(d) {
+            if (!counts.hasOwnProperty(d.offense_level)) {
+              counts[d.offense_level] = 0;
+            }
+
+            counts[d.offense_level]++;
+          }
+        );
+
+        var new_data = Object.keys(counts).map(
+          function(offense_level) {
+            return {
+                    offense_level: offense_level,
+                    count: counts[offense_level],
+                   };
+          }
+        );
+
+        var arc = g.selectAll('.arc')
+                   .data(pie(new_data))
+                   .enter().append('g')
+                           .attr('class', 'arc');
+        
+        arc.append('path')
+           .attr('d', path)
+           .attr('fill',
+                 function(d) {
+                   return color(d.data.offense_level);
+                 });
+        
+        arc.append('text')
+           .attr('transform',
+                 function(d) {
+                   return 'translate(' + label.centroid(d) + ')';
+                 })
+           .attr('dy', '0.35em')
+           .text(function(d) {return d.data.offense_level;});
+      }
+    );
+
+  </script>
+</body>
+
+</html>
